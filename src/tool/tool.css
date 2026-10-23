@@ -1,0 +1,36 @@
+/* 客户流失预警清单：只用 kit.css 的变量，类名以 ch- 开头 */
+.ch-root { flex: 1; min-height: 0; overflow: auto; display: flex; flex-direction: column; gap: 12px; }
+.ch-top { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.ch-card { padding: 12px 14px; display: grid; gap: 10px; }
+.ch-card p { margin: 0; }
+.ch-hd { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.ch-grow { flex: 1; }
+.ch-progress { display: flex; align-items: center; gap: 8px; color: var(--muted); }
+.ch-import { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 8px 12px; border-radius: 10px; background: var(--chip); border: 1px dashed transparent; font-size: .92em; color: var(--muted); }
+.ch-import.hover { border-color: var(--primary); }
+.ch-import b { color: var(--ink); }
+.ch-rules { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.ch-num { display: inline-flex; align-items: center; gap: 6px; }
+.ch-num .k-input { width: 64px; }
+.ch-sel { width: auto; }
+.ch-kw { flex: 1; min-width: 220px; }
+.ch-bad { color: var(--err); font-size: .9em; }
+.ch-lv { display: inline-block; padding: 0 9px; border-radius: 999px; font-size: .9em; font-weight: 600; background: var(--chip); }
+.ch-lv.high { background: var(--err-soft); color: var(--err); }
+.ch-lv.warn { background: var(--warn-soft); color: var(--warn); }
+.ch-lv.watch { background: var(--primary-soft); color: var(--primary); }
+.ch-star { color: var(--warn); font-size: .88em; font-weight: 600; }
+.ch-kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 8px; }
+.ch-kpi { display: grid; gap: 2px; padding: 8px 12px; border-radius: 10px; background: var(--chip); border: 1px solid transparent; text-align: left; font: inherit; color: inherit; }
+button.ch-kpi { cursor: pointer; }
+.ch-kpi span { color: var(--muted); font-size: .88em; }
+.ch-kpi b { font-size: 1.5em; font-weight: 700; }
+.ch-kpi.高危 b { color: var(--err); }
+.ch-kpi.预警 b { color: var(--warn); }
+.ch-kpi.on { border-color: var(--primary); background: var(--primary-soft); }
+.ch-tablebox { max-height: 360px; }
+.ch-remark { max-width: 220px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ch-more { padding: 8px 12px; }
+.ch-empty { display: grid; justify-items: center; gap: 8px; padding: 36px 24px; text-align: center; }
+.ch-root > * { flex: none; }
+.ch-sel { width: auto !important; flex: none; }

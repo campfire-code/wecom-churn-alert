@@ -1,0 +1,13 @@
+{
+  "id": "w09",
+  "slug": "wecom-churn-alert",
+  "name": "客户流失预警清单",
+  "version": "0.1.0",
+  "repo": "campfire-code/wecom-churn-alert",
+  "license": "MIT",
+  "ui": {
+    "layout": "e",
+    "palette": "orange"
+  },
+  "upstream": null
+}
