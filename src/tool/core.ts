@@ -58,9 +58,11 @@ export function parseDate(raw: string): number | null {
 
 const norm = (s: string) => s.toLowerCase().replace(/[\s_\-（）()]/g, '');
 const HEAD: Record<'ext' | 'name' | 'user' | 'time', string[]> = {
-  ext: ['客户id', '外部联系人id', '客户编号'],
+  // check-zh: 忽略（只用来识别用户导入表格的表头，兼容旧版导出和企业微信原始字段名，不显示给用户）
+  ext: ['客户id', '外部联系人id', '客户编号', 'externaluserid', '客户externaluserid', '客户userid'],
   name: ['客户名称', '客户昵称', '客户', '姓名', 'name'],
-  user: ['跟进成员', '成员', '成员账号', '所属成员'],
+  // check-zh: 忽略
+  user: ['跟进成员', '成员', '成员账号', '所属成员', '成员userid', 'userid'],
   time: ['最后互动时间', '最近互动时间', '最后聊天时间', '最近聊天时间', '最后沟通时间', '最后联系时间', '最后跟进时间', 'lastcontact', 'lastinteraction', '互动时间'],
 };
 
