@@ -34,3 +34,50 @@ button.ch-kpi { cursor: pointer; }
 .ch-empty { display: grid; justify-items: center; gap: 8px; padding: 36px 24px; text-align: center; }
 .ch-root > * { flex: none; }
 .ch-sel { width: auto !important; flex: none; }
+
+/* 0.2.0 打磨：风险概览 + 优先级行 + 预警标尺 */
+.ch-hero { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; padding: 18px 20px; border-radius: var(--radius-lg); background: var(--surface); border: 1px solid var(--line); border-left: 6px solid var(--err); }
+.ch-big { display: grid; gap: 0; }
+.ch-big b { font-size: 3.2em; line-height: 1; font-weight: 800; letter-spacing: -.02em; color: var(--ink); }
+.ch-big span { color: var(--muted); font-size: 1em; margin-top: 4px; }
+.ch-hero-r { flex: 1; min-width: 260px; display: grid; gap: 12px; }
+.ch-stack { display: flex; height: 14px; border-radius: 7px; overflow: hidden; background: var(--chip); }
+.ch-stack i { display: block; min-width: 0; transition: width .2s var(--ease); }
+.ch-stack .high { background: var(--err); } .ch-stack .warn { background: var(--warn); } .ch-stack .watch { background: var(--primary); }
+.ch-legend { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.ch-legend .ch-kpi { grid-auto-flow: column; align-items: baseline; gap: 8px; min-height: 36px; padding: 4px 14px; border-radius: 999px; }
+.ch-legend .ch-kpi b { font-size: 1.15em; }
+.ch-kpi.关注 b, .ch-kpi.watch b { color: var(--primary); }
+.ch-kpi.high b { color: var(--err); } .ch-kpi.warn b { color: var(--warn); }
+.ch-ruler { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border-radius: 12px; overflow: hidden; border: 1px solid var(--line); }
+.ch-ruler .ch-num { justify-content: center; padding: 10px 8px; gap: 6px; flex-wrap: wrap; }
+.ch-ruler .ch-num.watch { background: var(--primary-soft); } .ch-ruler .ch-num.warn { background: var(--warn-soft); } .ch-ruler .ch-num.high { background: var(--err-soft); }
+.ch-ruler .ch-lv { background: transparent; padding: 0; }
+.ch-ruler .ch-num .k-input { width: 70px; text-align: center; }
+.ch-rows { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; max-height: 480px; overflow: auto; }
+.ch-row { display: grid; grid-template-columns: 84px 1fr auto; align-items: center; gap: 14px; padding: 10px 14px 10px 0; border-radius: 12px; background: var(--chip); border-left: 6px solid var(--primary); }
+.ch-row.high { border-left-color: var(--err); } .ch-row.warn { border-left-color: var(--warn); }
+.ch-days { display: grid; justify-items: center; line-height: 1.1; }
+.ch-days b { font-size: 1.9em; font-weight: 800; }
+.ch-row.high .ch-days b { color: var(--err); } .ch-row.warn .ch-days b { color: var(--warn); } .ch-row.watch .ch-days b { color: var(--primary); }
+.ch-days span { font-size: .85em; color: var(--muted); }
+.ch-who { min-width: 0; display: grid; gap: 2px; }
+.ch-name { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.ch-who .ch-remark { max-width: none; color: var(--muted); }
+.ch-meta { display: grid; justify-items: end; gap: 2px; font-size: .92em; }
+.ch-art { width: min(100%, 420px); height: auto; }
+.ch-empty { display: grid; justify-items: center; gap: 10px; padding: 36px 24px; text-align: center; }
+.ch-empty .k-muted { max-width: 460px; }
+.ch-lv, .ch-star { font-size: .92em; }
+.ch-star { padding: 0 8px; border-radius: 999px; background: var(--warn-soft); }
+@media (max-width: 640px) { .ch-row { grid-template-columns: 70px 1fr; } .ch-meta { grid-column: 2; justify-items: start; } }
+.ch-root { --ch-watch: color-mix(in srgb, var(--primary) 55%, var(--ink)); }
+.ch-lv.watch, .ch-kpi.watch b, .ch-ruler .ch-lv.watch, .ch-row.watch .ch-days b { color: var(--ch-watch); }
+.ch-import { padding: 6px 12px; }
+.ch-import .k-btn { height: 32px; }
+.ch-legend .ch-kpi { color: var(--ink); }
+.ch-legend .ch-kpi span { color: var(--ink); }
+.ch-import > svg { flex: none; }
+.ch-import > span:not(.ch-grow):not(.k-st) { flex: 1 1 260px; min-width: 0; }
+.ch-import { flex-wrap: nowrap; }
+@media (max-width: 760px) { .ch-import { flex-wrap: wrap; } }

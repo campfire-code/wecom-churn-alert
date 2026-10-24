@@ -33,7 +33,7 @@ describe('日期与 CSV', () => {
 
 describe('互动时间表', () => {
   it('识别表头别名；坏行记录行号', () => {
-    const p = parseInteractionCsv('客户 external_userid,跟进成员,最后聊天时间\nwmA,xiaoli,2026-10-20\nwmB,xiaoli,待补\n,,2026-10-20\n');
+    const p = parseInteractionCsv('客户 ID,跟进成员,最后聊天时间\nwmA,xiaoli,2026-10-20\nwmB,xiaoli,待补\n,,2026-10-20\n');
     expect(p.rows).toEqual([{ ext: 'wmA', name: '', user: 'xiaoli', at: parseDate('2026-10-20')! }]);
     expect(p.bad).toEqual([{ line: 3, reason: '无法识别日期「待补」' }, { line: 4, reason: '客户 ID 和客户名称都是空的' }]);
   });

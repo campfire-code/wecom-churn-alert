@@ -58,24 +58,24 @@ export function parseDate(raw: string): number | null {
 
 const norm = (s: string) => s.toLowerCase().replace(/[\s_\-（）()]/g, '');
 const HEAD: Record<'ext' | 'name' | 'user' | 'time', string[]> = {
-  ext: ['externaluserid', '客户id', '客户externaluserid', '外部联系人id', '客户userid'],
+  ext: ['客户id', '外部联系人id', '客户编号'],
   name: ['客户名称', '客户昵称', '客户', '姓名', 'name'],
-  user: ['跟进成员', '成员', '成员userid', 'userid', '所属成员'],
+  user: ['跟进成员', '成员', '成员账号', '所属成员'],
   time: ['最后互动时间', '最近互动时间', '最后聊天时间', '最近聊天时间', '最后沟通时间', '最后联系时间', '最后跟进时间', 'lastcontact', 'lastinteraction', '互动时间'],
 };
 
 export interface ImportRow { ext: string; name: string; user: string; at: number }
 export interface ParsedImport { rows: ImportRow[]; bad: { line: number; reason: string }[] }
 
-/** 解析互动时间表：必须有「最后互动时间」列，以及「客户 external_userid」或「客户名称」其中之一；「跟进成员」可选 */
+/** 解析互动时间表：必须有「最后互动时间」列，以及「客户 ID」或「客户名称」其中之一；「跟进成员」可选 */
 export function parseInteractionCsv(text: string): ParsedImport {
   const t = parseCsv(text);
   if (!t.length) throw new Error('文件是空的');
   const head = t[0].map(norm);
   const col = (k: keyof typeof HEAD) => head.findIndex((h) => HEAD[k].map(norm).includes(h));
   const [ci, cn, cu, ct] = [col('ext'), col('name'), col('user'), col('time')];
-  if (ct < 0) throw new Error('没找到「最后互动时间」列。表头需要包含：最后互动时间，以及「客户 external_userid」或「客户名称」，可选「跟进成员」');
-  if (ci < 0 && cn < 0) throw new Error('没找到「客户 external_userid」或「客户名称」列，无法对应到客户');
+  if (ct < 0) throw new Error('没找到「最后互动时间」列。表头需要包含：最后互动时间，以及「客户 ID」或「客户名称」，可选「跟进成员」');
+  if (ci < 0 && cn < 0) throw new Error('没找到「客户 ID」或「客户名称」列，无法对应到客户');
   const rows: ImportRow[] = [];
   const bad: ParsedImport['bad'] = [];
   t.slice(1).forEach((r, i) => {
@@ -219,12 +219,12 @@ export function mergeLost(log: LostRel[], fresh: LostRel[], cur: Relation[]): Lo
 
 export function listCsv(rows: Row[]): string {
   return toCsv([
-    ['优先级', '跟进成员', '客户名称', '客户企业名', '备注', '描述', '添加时间', '最后互动时间', '未互动天数', '时间依据', '重点客户', '客户 external_userid'],
+    ['优先级', '跟进成员', '客户名称', '客户企业名', '备注', '描述', '添加时间', '最后互动时间', '未互动天数', '时间依据', '重点客户', '客户 ID'],
     ...rows.map((r) => [r.level, r.userid, r.name, r.corpName, r.remark, r.description, dayKey(r.addedAt), dayKey(r.lastAt), r.days, r.basis === '导入' ? '导入的互动时间' : '添加时间（估算）', r.important ? '是' : '', r.externalUserid]),
   ]);
 }
 export function lostCsv(lost: LostRel[]): string {
-  return toCsv([['原跟进成员', '客户名称', '备注', '描述', '添加时间', '发现流失日期', '客户 external_userid'], ...lost.map((l) => [l.userid, l.name, l.remark, l.description, dayKey(l.createtime), dayKey(l.detectedAt), l.externalUserid])]);
+  return toCsv([['原跟进成员', '客户名称', '备注', '描述', '添加时间', '发现流失日期', '客户 ID'], ...lost.map((l) => [l.userid, l.name, l.remark, l.description, dayKey(l.createtime), dayKey(l.detectedAt), l.externalUserid])]);
 }
 export function memberCsv(ms: MemberSummary[]): string {
   return toCsv([['成员', '客户数', '高危', '预警', '关注', '近 30 天聊天客户数', '近 30 天新增客户数'], ...ms.map((m) => [m.userid, m.customers, m.high, m.warn, m.watch, m.chat30 ?? '', m.newContact30 ?? ''])]);
